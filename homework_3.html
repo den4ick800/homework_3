@@ -1,0 +1,58 @@
+
+
+<!DOCTYPE html>
+<HTML>
+		<BODY>
+			<canvas id='lesson01' width='1080' height='720'/>
+			<script>
+				let canvas = document.getElementById("lesson01");
+				let context = canvas.getContext("2d");
+
+
+				var psize = 1;
+				
+			
+				var x_center = 540;
+				var y_center = 360;
+				let angle = Math.PI/7;
+				var length = 240;
+				function draw() {
+					context.clearRect(0,0,canvas.width,canvas.height);
+					context.strokeStyle = '#FF5500';
+					context.beginPath();
+					context.arc(x_center,y_center,300,0,2*Math.PI);
+					context.stroke();
+					var x_end=x_center+Math.round(length*Math.cos(angle));
+					var y_end=y_center+Math.round(length*Math.sin(angle));
+					var x_start=x_center;
+					var y_start=y_center;
+					var dx=Math.abs(x_end-x_center);
+					var dy=Math.abs(y_end-y_center);
+					var diff_x=(x_center<x_end) ? 1 : -1;
+					var diff_y=(y_center<y_end) ? 1 : -1;
+					var err = dx-dy;
+					while (true){
+						context.fillRect(x_start,y_start,1,1);
+						if((x_start==x_end) && (y_start==y_end)){
+							break;
+							}
+						var e2=2*err;
+						if(e2>-dy){
+							err-=dy;
+							x_start+=diff_x;
+							}
+						if(e2<dx){
+							err+=dx;
+							y_start+=diff_y
+							}
+							}
+					
+					angle+=(Math.PI)/7;
+					
+				}
+
+				setInterval(draw, 100);
+
+			</script>
+		</BODY>
+</HTML>
